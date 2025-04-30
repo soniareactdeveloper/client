@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router'
 import './App.css'
 import AuthLayout from './Layouts/AuthLayout'
-import Login from './Pages/login'
 import Registration from './Pages/registration'
 import ForgetPass from './Pages/forgetPass'
 import MainLayouts from './Layouts/MainLayouts'
@@ -10,6 +9,7 @@ import Chat from './Pages/chat'
 import Group from './Components/group'
 import People from './Components/people'
 import OtpVerify from './Pages/otpVerify'
+import Login from './Pages/login'
 
 function App() {
   return (

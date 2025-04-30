@@ -17,5 +17,14 @@ export const authService = {
   OtpVerify: async (email, otp) => {
     const res = await api.post('/auth/verifyemail',{ email, otp})
     return res.data
+  },
+  login: async (userData) => {
+    const res = await api.post("/auth/login", userData)
+    if (res.data.access_token) {
+      localStorage.setItem("user", JSON.stringify(res.data.user))
+      localStorage.setItem("token", res.data.access_token)
+    }
+    return res.data
   }
+  
 }
