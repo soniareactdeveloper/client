@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../Components/Navbar';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 const MainLayouts = () => {
+ const navigate = useNavigate()
+ const userData = useSelector((state)=> state.auth.value)
+ useEffect(()=> {
+  if(!userData){
+   navigate("/login")
+  }
+ },[])
+
+
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
       {/* Sidebar */}

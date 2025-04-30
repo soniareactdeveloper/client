@@ -2,17 +2,17 @@ import { Link, useNavigate } from 'react-router'
 import { authService } from '../service/api'
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import { BeatLoader } from 'react-spinners'
 
 const Registration = () => {
-  const [regData, setRegData] = useState({
-    fullname: "",
-    email: "",
-    password: "",
-  });
   const navigate = useNavigate()
+  const [regData, setRegData] = useState({fullname: "", email: "", password: "",});
+  const [loading, setLoading] = useState(false)
+  
 
  const handleSubmit = async (e)=>{
   e.preventDefault()
+  setLoading(true)
   try {
     const res = await authService.registration(regData);
     toast.success(res.message)
@@ -21,6 +21,8 @@ const Registration = () => {
     }, 3000);
   } catch (error) {
     toast.error(error.response.data.error)
+  }finally{
+    setLoading(false)
   }
  }
 
@@ -68,13 +70,19 @@ const Registration = () => {
             id="password"
             className="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:border-none focus:ring-2 focus:ring-blue-300"
           />
-          {/* button */}
-          <button
-            type="submit"
-            className="w-full bg-gradient-to-r from-blue-400 to-blue-600 text-white py-2 rounded-md shadow-md hover:opacity-90 transition-all duration-300"
-          >
-            Register
-          </button>
+           {/* Spinner or button */}
+           {loading ? (
+            <div className="flex justify-center w-full bg-gradient-to-r from-blue-400 to-blue-600 text-white py-2 rounded-md shadow-md">
+              <BeatLoader color="#000" />
+            </div>
+          ) : (
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-blue-400 to-blue-600 text-white py-2 rounded-md shadow-md hover:opacity-90 transition-all duration-300"
+            >
+              Register
+            </button>
+          )}
         </form>
 
         <p className="mt-4 text-center text-sm">
