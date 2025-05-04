@@ -1,6 +1,8 @@
 import React from 'react';
 import { Send } from 'lucide-react';
 
+
+
 const ChatBox = () => {
   return (
     <div className="flex flex-col h-[100vh] w-full md:w-[500px] border shadow-lg bg-white">

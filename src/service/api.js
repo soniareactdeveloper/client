@@ -1,13 +1,25 @@
 import axios from 'axios';
 
-
-
 const api = axios.create ({
   baseURL :import.meta.env.VITE_API_URL,
   headers : {
     "Content-Type" : "application/json",
   }
 })
+
+api.interceptors.request.use(
+  (config)=>{
+   const token = localStorage.getItem("token")
+   if (token) {
+    config.headers.Authorization = token;
+  }
+  console.log(token)
+  return config;
+  },
+  (error)=>{
+    return Promise.reject(error)
+  }
+)
 
 export const authService = {
   registration : async (userData)=>{
@@ -26,5 +38,11 @@ export const authService = {
     }
     return res.data
   }
-  
+}
+
+export const chatService = {
+  chatList : async ()=>{
+    const res = await api.get("/chat/chatList")
+    return res.data
+  }
 }
